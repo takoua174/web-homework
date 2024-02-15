@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Exercice 2</title>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('select').onchange = function() {
+                    document.querySelector('#test').style.fontFamily = this.value;
+                }
+                document.querySelector('#color').onchange = function() {
+                    document.querySelector('#test').style.color = this.value;
+                }
+                document.querySelector('#number').onchange = function() {
+                    document.querySelector('#test').style.fontSize = this.value+'px';
+                }
+            });
+        </script>   
+    </head>
+    <body>
+    <div id ="test" style="font-size:25px;" >Test</div>
+    <br>
+    <form>
+        <input id="color" type="color" >
+        <input id="number" type="number" >
+        <select >
+        <option value="Ariel">Ariel</option>
+        <option value="Courier New">Courrier new</option>
+        <option value="Open Sans">Open sans</option>
+        </select>
+    </form>
+    </body>
+</html>
