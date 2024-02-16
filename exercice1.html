@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise 1</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let n;
+
+            document.querySelector('select').onchange = function() {
+                let div = document.querySelector('div');
+                if (this.value === "easy") {
+                    n = Math.floor(Math.random() * 10);
+                    div.innerHTML = "Choose a number from 0 to 9";
+                } else if (this.value === "intermediate") {
+                    n = Math.floor(Math.random() * 100);
+                    div.innerHTML = "Choose a number from 0 to 99";
+                } else if (this.value === "difficult") {
+                    n = Math.floor(Math.random() * 1000);
+                    div.innerHTML = "Choose a number from 0 to 999";
+                }
+            };
+
+            document.querySelector('form').onsubmit = function() {
+                if (typeof n === 'undefined') {
+                    alert("Please choose a level of difficulty !");
+                    return false;
+                }
+
+                let response = parseInt(document.querySelector('#try').value);
+                if (isNaN(response)) {
+                    alert("Please enter a valid number.");
+                    return false;
+                }
+
+                while (true) {
+                    if (response === n) {
+                        alert("Correct, Congratulations!");
+                        break;
+                    } else {
+                        response =prompt("Wrong, try again. Enter a new guess .");
+                        if (isNaN(parseInt(response))) {
+                            alert("Please enter a valid number.");
+                            return false;
+                        }
+                        if (parseInt(response) === n) {
+                            alert("Correct, Congratulations!");
+                            break;
+                        } else if (response === null) {
+                            alert("The correct answer was: " + n);
+                            break;
+                        }
+                    }
+                }
+                return false; 
+            };
+        });
+    </script>
+</head>
+<body>
+    <form style="text-align:center;">
+        Choose the level of Difficulty:
+        <br>
+        <select>
+            <option value="easy">Easy</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="difficult">Difficult</option>
+        </select>
+        <br>
+        <div></div>
+        <br>
+        <input id="try" type="text">
+        <input id="submit" type="submit">
+    </form>
+</body>
+</html>
