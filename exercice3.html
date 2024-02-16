@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exercice 3</title>
+        <style>
+        #tasks li {
+            margin-bottom: 10px;
+            list-style: none; 
+            border: 1px solid black; 
+            padding: 5px; 
+            background-color: grey;
+            max-width: 400px; 
+            font-size: 25px;          
+        }
+        form {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 20px; 
+        }
+        input[type="text"] {
+            width: 300px;
+            height: 30px;
+        }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('form').onsubmit = () => {
+                    const name = document.querySelector('#name').value;
+                    const content = document.querySelector('#content').value;
+                    const li = document.createElement('li');
+                    li.innerHTML =name+':'+content;
+                    document.querySelector('#tasks').append(li);
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.className = 'delete-button';
+                    deleteButton.onclick = function() {
+                        li.remove();
+                    };
+                    li.append(deleteButton);
+                    document.querySelector('#tasks').append(li);
+                    document.querySelector('#name').value='';
+                    document.querySelector('#content').value='';                    
+                    return false;
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <form>
+            Name:
+            <br>
+            <input id="name" type="text" >
+            <br>
+            Content:
+            <br>
+            <input id="content" type="text" >
+            <br>
+            <br>
+            <input id="add" type="submit" style="color:white;background-color:blue; width:100px;height: 40px;" placeholder="Add Todo" >
+        </form>
+        <ul id="tasks">
+        
+        </ul>
+    </body>
+</html>
