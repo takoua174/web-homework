@@ -3,73 +3,55 @@
 <head>
     <title>Exercise 1</title>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let n;
-
-            document.querySelector('select').onchange = function() {
-                let div = document.querySelector('div');
-                if (this.value === "easy") {
-                    n = Math.floor(Math.random() * 10);
-                    div.innerHTML = "Choose a number from 0 to 9";
-                } else if (this.value === "intermediate") {
-                    n = Math.floor(Math.random() * 100);
-                    div.innerHTML = "Choose a number from 0 to 99";
-                } else if (this.value === "difficult") {
-                    n = Math.floor(Math.random() * 1000);
-                    div.innerHTML = "Choose a number from 0 to 999";
-                }
-            };
-
-            document.querySelector('form').onsubmit = function() {
-                if (typeof n === 'undefined') {
-                    alert("Please choose a level of difficulty !");
-                    return false;
-                }
-
-                let response = parseInt(document.querySelector('#try').value);
-                if (isNaN(response)) {
-                    alert("Please enter a valid number.");
-                    return false;
-                }
-
-                while (true) {
-                    if (response === n) {
-                        alert("Correct, Congratulations!");
-                        break;
-                    } else {
-                        response =prompt("Wrong, try again. Enter a new guess .");
-                        if (isNaN(parseInt(response))) {
-                            alert("Please enter a valid number.");
-                            return false;
-                        }
-                        if (parseInt(response) === n) {
-                            alert("Correct, Congratulations!");
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('button').onclick = function startGame() {
+                let choice = parseInt(prompt("choose the level of difficulty :\n1.Easy\n2.Intermediate\n3.Hard"));
+                let max;
+                if (choice === null) return;
+                else {
+                    switch (choice) {
+                        case 1:
+                            max = 10;
                             break;
-                        } else if (response === null) {
-                            alert("The correct answer was: " + n);
+                        case 2:
+                            max = 50;
                             break;
+                        case 3:
+                            max = 100;
+                            break;
+                        default:
+                            choice = parseInt(prompt("enter a valid choice ! , do you want to replay ?\n1.Yes\n2.No"));
+                            if (choice === 1) {
+                                startGame();
+                                return;
+                            }
+                            return;
+                    }
+                    let answer = Math.floor(Math.random() * max);
+                    let tries = 0;
+                    choice = parseInt(prompt("choose a number "));
+                    while (tries < 10) {
+                        if (choice === answer) {
+                            choice = parseInt(prompt("Congratulations!, you have won .Do you want to replay ?\n1.Yes\n2.No"));
+                            if (choice === 1) {
+                                startGame(); // Replay the game
+                            }
+                            break;
+                        } else if (choice > answer) {
+                            choice = parseInt(prompt("your choice is too high, try again"));
+                        } else if (choice < answer) {
+                            choice = parseInt(prompt("your choice is too low, try again"));
                         }
+                        if (choice === null) return;
+                        tries++;
                     }
                 }
-                return false; 
-            };
+            }
         });
     </script>
 </head>
-<body>
-    <form style="text-align:center;">
-        Choose the level of Difficulty:
-        <br>
-        <select>
-            <option value="easy">Easy</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="difficult">Difficult</option>
-        </select>
-        <br>
-        <div></div>
-        <br>
-        <input id="try" type="text">
-        <input id="submit" type="submit">
-    </form>
+<body style="background-color:blue;text-align:center;color:white;" >
+    <h1 style="font-size:50px;font-family:courier new;color:white;text-align:center;margin-top:100px;margin-bottom:100px;">GUESSING GAME</h1>
+    <button>PLAY</button>
 </body>
 </html>
